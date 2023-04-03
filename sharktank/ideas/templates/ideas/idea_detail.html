@@ -1,3 +1,4 @@
 <h1>{{ idea.title }}</h1>
 <h3>{{ idea.submitter_name }}</h3>
 <a href="{{ idea.deck_url }}">Deck</a>
+<button type="button" onclick="location.href='{% url 'ideas:game-detail' idea.game_id %}'">Back to the Game</button>
