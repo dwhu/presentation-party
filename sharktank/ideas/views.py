@@ -22,6 +22,23 @@ def game_detail(request, pk):
     return render(request, "ideas/game_detail.html", {"game": game, "ideas": ideas})
 
 
+def idea_submit(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+    if request.method == "POST":
+        idea = Idea(
+            game=game,
+            title=request.POST["title"],
+            submitter_name=request.POST["submitter_name"],
+            deck_url=request.POST["deck_url"],
+        )
+        idea.save()
+        return HttpResponseRedirect(
+            reverse("ideas:idea-detail", args=(game.id, idea.id))
+        )
+    else:
+        return render(request, "ideas/idea_submit.html", {"game": game})
+
+
 def idea_detail(request, game_id, idea_id):
     idea = get_object_or_404(Idea, pk=idea_id)
     return render(request, "ideas/idea_detail.html", {"idea": idea})

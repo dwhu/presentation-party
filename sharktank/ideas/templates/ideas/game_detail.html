@@ -8,3 +8,4 @@
 {% else %}
     <p>No ideas are available.</p>
 {% endif %}
+<button type="button" onclick="location.href='{% url 'ideas:idea-submit' game.id %}'">Add Idea</button>
