@@ -2,7 +2,7 @@
     <h1>Current Ideas</h1>
     <ul>
     {% for idea in ideas %}
-        <li><a href="/games/{{ idea.game_id }}/ideas/{{ idea.id }}/">{{ idea.title }}</a></li>
+        <li><a href="{% url 'ideas:idea-detail' idea.game_id idea.id %}">{{ idea.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

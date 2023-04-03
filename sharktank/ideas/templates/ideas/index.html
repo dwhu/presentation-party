@@ -2,7 +2,7 @@
     <h1>Upcoming Games</h1>
     <ul>
     {% for game in latest_game_list %}
-        <li><a href="/games/{{ game.id }}/">{{ game.game_date }}</a></li>
+        <li><a href="{% url 'ideas:game-detail' game.id %}">{{ game.game_date }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
