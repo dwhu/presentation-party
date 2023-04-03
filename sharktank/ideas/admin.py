@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Game, Presenter, Idea, Vote
+
+from .models import Game, Idea, Presenter, Vote
+
 # Register your models here.
 
 admin.site.register(Game)
