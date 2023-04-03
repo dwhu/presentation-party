@@ -9,6 +9,8 @@ urlpatterns = [
     # ex: /games/5/
     path("<int:pk>/", views.game_detail, name="game-detail"),
     # ex: /games/5/
+    path("<int:pk>/randomize", views.randomize_idea_presenter, name="game-randomize"),
+    # ex: /games/5/
     path("<int:pk>/submit", views.idea_submit, name="idea-submit"),
     # ex: /games/5/ideas/1/
     path("<int:game_id>/ideas/<int:idea_id>/", views.idea_detail, name="idea-detail"),

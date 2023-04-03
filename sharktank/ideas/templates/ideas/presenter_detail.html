@@ -1,4 +1,5 @@
 <h1>{{ presenter.name }}</h1>
+{% include "ideas/idea_list.html" %}
 {% if presenter.game_id %}
 <button type="button" onclick="location.href='{% url 'ideas:game-detail' presenter.game_id %}'">Back to the Game</button>
 {% endif %}

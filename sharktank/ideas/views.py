@@ -1,3 +1,5 @@
+import random
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -45,7 +47,10 @@ def presenter_index(request, pk):
 
 def presenter_detail(request, game_id, pk):
     presenter = get_object_or_404(Presenter, pk=pk)
-    return render(request, "ideas/presenter_detail.html", {"presenter": presenter})
+    ideas = Idea.objects.filter(game=presenter.game, presenter=presenter)
+    return render(
+        request, "ideas/presenter_detail.html", {"presenter": presenter, "ideas": ideas}
+    )
 
 
 def idea_submit(request, pk):
@@ -68,3 +73,16 @@ def idea_submit(request, pk):
 def idea_detail(request, game_id, idea_id):
     idea = get_object_or_404(Idea, pk=idea_id)
     return render(request, "ideas/idea_detail.html", {"idea": idea})
+
+
+def randomize_idea_presenter(request, pk):
+    if request.method == "POST":
+        game = get_object_or_404(Game, pk=pk)
+        ideas = Idea.objects.filter(game=game)
+        presenters = Presenter.objects.filter(game=game)
+        presenter_count = {p: 0 for p in presenters}
+        for idea in ideas:
+            idea.presenter = min(presenter_count, key=presenter_count.get)
+            presenter_count[idea.presenter] += 1
+            idea.save()
+    return HttpResponseRedirect(reverse("ideas:game-detail", args=(pk,)))

@@ -12,7 +12,7 @@ class Presenter(models.Model):
 
 class Idea(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    presenter = models.OneToOneField(
+    presenter = models.ForeignKey(
         Presenter, on_delete=models.DO_NOTHING, blank=True, null=True
     )
     title = models.CharField(max_length=200)
