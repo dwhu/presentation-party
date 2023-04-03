@@ -1,0 +1,33 @@
+<form action="{% url 'ideas:idea-vote' idea.game_id idea.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>"{{ idea.title }}" Review</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <input type="range"
+           min="1"
+           max="5"
+           name="entertainment_score"
+           id="entertainment_score"
+           value="{{ entertainment_score }}"
+           list="values"
+           step="1">
+    <label for="entertainment_score">Entertainment Score</label><br>
+    <input type="range"
+           min="1"
+           max="5"
+           name="creativity_score"
+           id="creativity_score"
+           value="{{ creativity_score }}"
+           list="values"
+           step="1">
+    <label for="creativity_score">Creativity Score</label><br>
+    <datalist id="values">
+      <option value="1" label="yikes"></option>
+      <option value="2" label="fine"></option>
+      <option value="3" label="good"></option>
+      <option value="4" label="wow"></option>
+      <option value="5" label="incredible"></option>
+    </datalist>
+</fieldset>
+<input type="submit" value="Submit">
+</form>

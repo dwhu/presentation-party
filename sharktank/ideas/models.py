@@ -22,6 +22,5 @@ class Idea(models.Model):
 
 class Vote(models.Model):
     idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
-    presenter = models.ForeignKey(Presenter, on_delete=models.DO_NOTHING)
     entertainment_score = models.IntegerField()
     creativity_score = models.IntegerField()

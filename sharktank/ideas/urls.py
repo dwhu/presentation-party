@@ -14,6 +14,8 @@ urlpatterns = [
     path("<int:pk>/submit", views.idea_submit, name="idea-submit"),
     # ex: /games/5/ideas/1/
     path("<int:game_id>/ideas/<int:idea_id>/", views.idea_detail, name="idea-detail"),
+    # ex: /games/5/ideas/1/
+    path("<int:game_id>/ideas/<int:idea_id>/vote", views.vote, name="idea-vote"),
     # ex: /games/5/presenters
     path("<int:pk>/presenters", views.presenter_index, name="presenter-index"),
     # ex: /games/5/presenters/1/

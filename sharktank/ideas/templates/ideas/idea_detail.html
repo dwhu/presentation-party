@@ -4,5 +4,9 @@
 <h3>Presenter:</h3>
 {% if idea.presenter %}
 <a href="{% url 'ideas:presenter-detail' idea.game_id idea.presenter.id %}">{{ idea.presenter.name}}</a>
+{% include "ideas/vote_form.html" %}
 {% else %} None {% endif %}
+<h2>Scores ({{ num_votes }}):</h2>
+<h4>Average Entertainment: </h4>{{avg_entertainment}}
+<h4>Average Creativity: </h4>{{avg_creativity}}
 <button type="button" onclick="location.href='{% url 'ideas:game-detail' idea.game_id %}'">Back to the Game</button>

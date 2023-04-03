@@ -72,7 +72,30 @@ def idea_submit(request, pk):
 
 def idea_detail(request, game_id, idea_id):
     idea = get_object_or_404(Idea, pk=idea_id)
-    return render(request, "ideas/idea_detail.html", {"idea": idea})
+    votes = Vote.objects.filter(idea=idea)
+    avg_creativity = sum([v.creativity_score for v in votes]) / len(votes)
+    avg_entertainment = sum([v.entertainment_score for v in votes]) / len(votes)
+    return render(
+        request,
+        "ideas/idea_detail.html",
+        {
+            "idea": idea,
+            "num_votes": len(votes),
+            "avg_creativity": avg_creativity,
+            "avg_entertainment": avg_entertainment,
+        },
+    )
+
+
+def vote(request, game_id, idea_id):
+    idea = get_object_or_404(Idea, pk=idea_id)
+    if request.method == "POST":
+        Vote(
+            idea=idea,
+            entertainment_score=request.POST["entertainment_score"],
+            creativity_score=request.POST["creativity_score"],
+        ).save()
+    return HttpResponseRedirect(reverse("ideas:idea-detail", args=(game_id, idea_id)))
 
 
 def randomize_idea_presenter(request, pk):
