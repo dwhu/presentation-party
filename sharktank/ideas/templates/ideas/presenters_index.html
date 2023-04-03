@@ -1,0 +1,13 @@
+{% if presenters %}
+    <h1>Upcoming Games</h1>
+    <ul>
+    {% for presenter in presenters %}
+        <li><a href="{% url 'ideas:presenter-detail' presenter.game_id presenter.id %}">{{ presenter.name }}</a></li>
+    {% endfor %}
+    </ul>
+    <h2>Add a new Presenter</h2>
+    {% include "ideas/presenter_form.html" %}
+{% else %}
+    <p>No presenters are available.</p>
+{% endif %}
+<button type="button" onclick="location.href='{% url 'ideas:game-detail' game.id %}'">Back to the Game</button>

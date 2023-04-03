@@ -1,0 +1,14 @@
+<form action="{% url 'ideas:idea-submit' game.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ game.game_date }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <input name="title" id="idea_title" value="{{ title }}">
+    <label for="idea_title">Title</label><br>
+    <input name="submitter_name" id="submitter_name" value="{{ submitter_name }}">
+    <label for="submitter_name">Submitter Name</label><br>
+    <input name="deck_url" id="deck_url" value="{{ deck_url }}">
+    <label for="deck_url">Deck URL</label><br>
+</fieldset>
+<input type="submit" value="Submit">
+</form>

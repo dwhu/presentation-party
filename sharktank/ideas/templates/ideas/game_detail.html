@@ -1,10 +1,13 @@
 {% if ideas %}
-    <h1>Current Ideas</h1>
-    <ul>
-    {% for idea in ideas %}
-        <li><a href="{% url 'ideas:idea-detail' idea.game_id idea.id %}">{{ idea.title }}</a></li>
-    {% endfor %}
-    </ul>
+    <h1>{{game.title | title}}</h1>
+    <h2>Current Ideas</h2>
+    {% include "ideas/idea_list.html" %}
+    <h3>Submit a New Idea</h3>
+    {% include "ideas/idea_form.html" %}
+    <h2>Current Presenters</h2>
+    {% include "ideas/presenters_list.html" %}
+    <h3>Submit a New Presenter</h3>
+    {% include "ideas/presenter_form.html" %}
 {% else %}
     <p>No ideas are available.</p>
 {% endif %}

@@ -1,0 +1,4 @@
+<h1>{{ presenter.name }}</h1>
+{% if presenter.game_id %}
+<button type="button" onclick="location.href='{% url 'ideas:game-detail' presenter.game_id %}'">Back to the Game</button>
+{% endif %}

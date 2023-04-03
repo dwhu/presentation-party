@@ -1,0 +1,5 @@
+<ul>
+{% for presenter in presenters %}
+    <li><a href="{% url 'ideas:presenter-detail' game.id presenter.id %}">{{ presenter.name}}</a></li>
+{% endfor %}
+</ul>

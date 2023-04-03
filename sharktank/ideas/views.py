@@ -19,7 +19,33 @@ class GameIndexView(generic.ListView):
 def game_detail(request, pk):
     game = get_object_or_404(Game, pk=pk)
     ideas = Idea.objects.filter(game=game)
-    return render(request, "ideas/game_detail.html", {"game": game, "ideas": ideas})
+    presenters = Presenter.objects.filter(game=game)
+    return render(
+        request,
+        "ideas/game_detail.html",
+        {"game": game, "ideas": ideas, "presenters": presenters},
+    )
+
+
+def presenter_index(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+    presenters = Presenter.objects.filter(game=game)
+    if request.method == "POST":
+        presenter = Presenter(game=game, name=request.POST["name"]).save()
+        return HttpResponseRedirect(
+            reverse("ideas:presenter-detail", args=(game.id, presenter.id))
+        )
+    else:
+        return render(
+            request,
+            "ideas/presenters_index.html",
+            {"game": game, "presenters": presenters},
+        )
+
+
+def presenter_detail(request, game_id, pk):
+    presenter = get_object_or_404(Presenter, pk=pk)
+    return render(request, "ideas/presenter_detail.html", {"presenter": presenter})
 
 
 def idea_submit(request, pk):

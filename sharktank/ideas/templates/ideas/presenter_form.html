@@ -1,0 +1,10 @@
+<form action="{% url 'ideas:presenter-index' game.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ game.game_date }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <input name="name" id="name" value="{{ name }}">
+    <label for="name">Name</label><br>
+</fieldset>
+<input type="submit" value="Submit">
+</form>

@@ -6,6 +6,7 @@ class Game(models.Model):
 
 
 class Presenter(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField("presenter name", max_length=200)
 
 

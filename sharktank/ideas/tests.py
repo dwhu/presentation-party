@@ -77,3 +77,39 @@ class IdeaDetailViewTests(TestCase):
             response.context["idea"],
             idea,
         )
+
+
+class PresenterIndexViewTests(TestCase):
+    def test_no_presenters(self):
+        """
+        If no presenters exist, an appropriate message is displayed.
+        """
+        game = Game.objects.create(game_date="2018-01-01")
+        response = self.client.get(reverse("ideas:presenter-index", args=(game.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No presenters are available.")
+        self.assertQuerysetEqual(response.context["presenters"], [])
+
+    def test_presenter(self):
+        """
+        Presenters with a game_date in the past are displayed on the
+        index page.
+        """
+        game = Game.objects.create(game_date="2018-01-01")
+        presenter = Presenter.objects.create(name="test presenter", game=game)
+        response = self.client.get(reverse("ideas:presenter-index", args=(game.id,)))
+        self.assertQuerysetEqual(
+            response.context["presenters"],
+            [presenter],
+        )
+
+
+class PresenterDetailViewTests(TestCase):
+    def test(self):
+        game = Game.objects.create(game_date="2018-01-01")
+        presenter = Presenter.objects.create(name="test presenter", game=game)
+        response = self.client.get(
+            reverse("ideas:presenter-detail", args=(game.id, presenter.id))
+        )
+        self.assertContains(response, "test presenter")
+        self.assertEqual(response.context["presenter"], presenter)
