@@ -1,0 +1,10 @@
+{% if latest_game_list %}
+    <h1>Upcoming Games</h1>
+    <ul>
+    {% for game in latest_game_list %}
+        <li><a href="/games/{{ game.id }}/">{{ game.game_date }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games are available.</p>
+{% endif %}

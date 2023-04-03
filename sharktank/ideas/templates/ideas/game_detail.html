@@ -1,0 +1,10 @@
+{% if game %}
+    <h1>Current Ideas</h1>
+    <ul>
+    {% for idea in ideas %}
+        <li><a href="/games/{{ idea.game_id }}/ideas/{{ idea.id }}/">{{ idea.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games are available.</p>
+{% endif %}
