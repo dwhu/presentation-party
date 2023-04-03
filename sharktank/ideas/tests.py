@@ -58,3 +58,22 @@ class GameDetailViewTests(TestCase):
             response.context["ideas"],
             [idea],
         )
+
+
+class IdeaDetailViewTests(TestCase):
+    def test(self):
+        game = Game.objects.create(game_date="2018-01-01")
+        idea = Idea.objects.create(
+            game=game,
+            title="test idea",
+            submitter_name="dave",
+            deck_url="http://google.com",
+        )
+        response = self.client.get(
+            reverse("ideas:idea-detail", args=(game.id, idea.id))
+        )
+        self.assertContains(response, "test idea")
+        self.assertEqual(
+            response.context["idea"],
+            idea,
+        )
